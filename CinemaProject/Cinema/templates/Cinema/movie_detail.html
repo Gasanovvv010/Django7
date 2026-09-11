@@ -1,0 +1,18 @@
+{% extends 'Cinema/base.html' %}
+
+{% block content %}
+
+<h1>{{ movie.title }}</h1>
+
+<p>Genre: {{ movie.genre }}</p>
+<p>Duration: {{ movie.duration }} minutes</p>
+<p>Age rating: {{ movie.age }}</p>
+
+{% if movie.seats > 0 %}
+    <p>Free seats: {{ movie.seats }}</p>
+    <a href="/bookings/{{ movie.id }}/">Book ticket</a>
+{% else %}
+    <p>SOLD OUT</p>
+{% endif %}
+
+{% endblock %}

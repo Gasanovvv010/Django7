@@ -1,0 +1,58 @@
+{% extends 'Cinema/base.html' %}
+
+{% block content %}
+
+<h1>Movies</h1>
+
+<form method="GET">
+
+    <label>Genre:</label>
+
+    <select name="genre">
+        <option value="">All genres</option>
+
+        {% for genre in genres %}
+            <option value="{{ genre }}">{{ genre }}</option>
+        {% endfor %}
+    </select>
+
+    <label>
+        <input type="checkbox" name="available" value="1">
+        Only available
+    </label>
+
+    <button type="submit">Filter</button>
+
+    <a href="/movies/">Reset</a>
+
+</form>
+
+<hr>
+
+{% for movie in movies %}
+
+<div class="movie">
+
+    <h2>{{ movie.title }}</h2>
+
+    <p>Genre: {{ movie.genre }}</p>
+    <p>Duration: {{ movie.duration }} minutes</p>
+    <p>Age: {{ movie.age }}</p>
+
+    {% if movie.seats > 0 %}
+        <p>Free seats: {{ movie.seats }}</p>
+    {% else %}
+        <p>SOLD OUT</p>
+    {% endif %}
+
+    <a href="/movies/{{ movie.id }}/">Movie details</a>
+
+</div>
+
+{% empty %}
+
+<p>No movies found.</p>
+
+{% endfor %}
+
+{% endblock %}

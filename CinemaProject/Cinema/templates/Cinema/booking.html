@@ -1,0 +1,52 @@
+{% extends 'Cinema/base.html' %}
+
+{% block content %}
+
+<h1>Book ticket</h1>
+
+<h2>{{ movie.title }}</h2>
+
+{% if success %}
+
+    <h2>Booking successful!</h2>
+
+    <p>Movie: {{ movie.title }}</p>
+    <p>Customer: {{ customer_name }}</p>
+    <p>Tickets: {{ tickets }}</p>
+    <p>Remaining seats: {{ movie.seats }}</p>
+
+{% else %}
+
+    {% if error %}
+        <p>{{ error }}</p>
+    {% endif %}
+
+    {% if movie.seats > 0 %}
+
+        <p>Free seats: {{ movie.seats }}</p>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <label>Customer name:</label>
+            <input type="text" name="customer_name">
+
+            <br><br>
+
+            <label>Number of tickets:</label>
+            <input type="number" name="tickets" min="1">
+
+            <br><br>
+
+            <button type="submit">Book</button>
+        </form>
+
+    {% else %}
+
+        <p>SOLD OUT</p>
+
+    {% endif %}
+
+{% endif %}
+
+{% endblock %}
